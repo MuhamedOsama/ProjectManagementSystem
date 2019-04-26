@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProjectManagementSystem.Models;
@@ -15,6 +16,7 @@ namespace ProjectManagementSystem.Controllers
     [Authorize]
     public class AccountController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -139,6 +141,10 @@ namespace ProjectManagementSystem.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            var roleStore = new RoleStore<IdentityRole>(db);
+            var roleMngr = new RoleManager<IdentityRole>(roleStore);
+            var roles = roleMngr.Roles.Where(e=>e.Name!="Admin").ToList();
+            ViewBag.UserTypes = new SelectList(roles, "Id", "Name");
             return View();
         }
 
@@ -151,11 +157,19 @@ namespace ProjectManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Email, Email = model.Email };
+                var user = new User {FirstName = model.FirstName, LastName = model.LastName, Description = model.Description, UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
+                    var roleStore = new RoleStore<IdentityRole>(db);
+                    var roleMngr = new RoleManager<IdentityRole>(roleStore);
+                    var role = roleMngr.FindById(model.UserType);
+                    var res = await UserManager.AddToRoleAsync(user.Id, role.Name);
+                    if (res.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    }
+                    
                     
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
