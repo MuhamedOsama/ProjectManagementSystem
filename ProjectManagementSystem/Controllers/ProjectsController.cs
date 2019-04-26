@@ -18,7 +18,7 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult Index()
         {
             var projects = db.Projects.Include(p => p.Customer);
-            return View(projects.ToList());
+            return PartialView("_ListProjects",projects.ToList());
         }
 
         // GET: Projects/Details/5
@@ -39,8 +39,9 @@ namespace ProjectManagementSystem.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
+            var project = new Project();
             ViewBag.CustomerId = new SelectList(db.Users, "Id", "FirstName");
-            return View();
+            return PartialView("_CreateProject",project);
         }
 
         // POST: Projects/Create
@@ -52,13 +53,14 @@ namespace ProjectManagementSystem.Controllers
         {
             if (ModelState.IsValid)
             {
+                project.CreatedAt = DateTime.Now;
                 db.Projects.Add(project);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
 
             ViewBag.CustomerId = new SelectList(db.Users, "Id", "FirstName", project.CustomerId);
-            return View(project);
+            return RedirectToAction("Index","Home");
         }
 
         // GET: Projects/Edit/5
