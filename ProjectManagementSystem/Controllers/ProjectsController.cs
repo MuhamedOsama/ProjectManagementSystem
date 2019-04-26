@@ -15,7 +15,7 @@ namespace ProjectManagementSystem.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
-        [Authorize(Roles = "Customer")]
+        
         public ActionResult Index()
         {
             var projects = db.Projects.Include(p => p.Customer);
