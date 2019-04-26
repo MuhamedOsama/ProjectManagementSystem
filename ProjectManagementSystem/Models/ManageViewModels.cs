@@ -1,5 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Drawing;
+using System.IO;
+using System.Web;
+using System.Web.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
 
@@ -7,11 +11,10 @@ namespace ProjectManagementSystem.Models
 {
     public class IndexViewModel
     {
-        public bool HasPassword { get; set; }
-        public IList<UserLoginInfo> Logins { get; set; }
-        public string PhoneNumber { get; set; }
-        public bool TwoFactor { get; set; }
-        public bool BrowserRemembered { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Email { get; set; }
+        public string img { get; set; }
     }
 
     public class ManageLoginsViewModel

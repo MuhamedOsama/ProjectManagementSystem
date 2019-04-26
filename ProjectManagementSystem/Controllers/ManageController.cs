@@ -1,9 +1,12 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using System.Web.Helpers;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using ProjectManagementSystem.Models;
@@ -13,6 +16,7 @@ namespace ProjectManagementSystem.Controllers
     [Authorize]
     public class ManageController : Controller
     {
+        private ApplicationDbContext db = new ApplicationDbContext();
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
@@ -62,20 +66,18 @@ namespace ProjectManagementSystem.Controllers
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
-
-            var userId = User.Identity.GetUserId();
+            string userId = User.Identity.GetUserId();
+            User user = db.Users.Include(m => m.Photo).Single(m => m.Id == userId);
             var model = new IndexViewModel
             {
-                HasPassword = HasPassword(),
-                PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
-                TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
-                Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
-            };
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                img = user.Photo.FilePath
+        };
             return View(model);
         }
 
-        //
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]

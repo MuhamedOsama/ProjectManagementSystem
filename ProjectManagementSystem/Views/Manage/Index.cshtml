@@ -9,20 +9,25 @@
     <h2 class="text-center">Your Profile</h2>
     <div class="row">
         <div class="col">
-            <img src="http://ssl.gstatic.com/accounts/ui/avatar_2x.png" class="avatar img-thumbnail rounded-circle" alt="avatar" />
+            @{ 
+                var ProfilePic = new WebImage(Model.img);
+                string imagebase64string = Convert.ToBase64String(ProfilePic.GetBytes());
+                string dataUrl = string.Format("data:image/jpeg;base64,{0}", imagebase64string);
+                }
+            <img src="@dataUrl" width="200" height="200" class="avatar img-thumbnail rounded-circle" alt="avatar" />
             <br />
             <br />
             <button class="btn btn-primary">Edit Your Profile</button>
             <br />
             <br />
             <h5>FirstName:</h5>
-            <p>@*Html.DisplayNameFor(m => m.FirstName)*@</p>
+            <p>@Html.DisplayTextFor(m => m.FirstName)</p>
             <br />
             <h5>LastName:</h5>
-            <p>@*Html.DisplayNameFor(m => m.LastName)*@</p>
+            <p>@Html.DisplayTextFor(m => m.LastName)</p>
             <br />
             <h5>Email:</h5>
-            <p>@*Html.DisplayNameFor(m => m.Email)*@</p>
+            <p>@Html.DisplayTextFor(m => m.Email)</p>
         </div>
         <div class="col">
             <table class="table">
