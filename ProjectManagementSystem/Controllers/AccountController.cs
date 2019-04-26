@@ -155,9 +155,15 @@ namespace ProjectManagementSystem.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
-            if (ModelState.IsValid)
+            var file = model.File;
+            if (ModelState.IsValid && file != null && file.ContentType == "image/jpeg" || file.ContentType == "image/png")
             {
-                var user = new User {FirstName = model.FirstName, LastName = model.LastName, Description = model.Description, UserName = model.Email, Email = model.Email};
+                string pic = System.IO.Path.GetFileName(file.FileName);
+                string path = System.IO.Path.Combine(
+                                       Server.MapPath("~/images/profile"), pic);
+                file.SaveAs(path);
+                var photo = new Photo { FileContentType = file.ContentType, FileName = file.FileName, FilePath = path };
+                var user = new User { FirstName = model.FirstName, LastName = model.LastName, Description = model.Description, UserName = model.Email, Email = model.Email, Photo = photo };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

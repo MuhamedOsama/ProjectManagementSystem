@@ -2,10 +2,12 @@
 @{
     ViewBag.Title = "Register";
 }
+@using System.Web.Mvc.Ajax
+
 
 <h2>@ViewBag.Title.</h2>
 
-@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+@using (Html.BeginForm("Register", "Account", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
     <h4>Create a new account.</h4>
@@ -53,7 +55,12 @@
             @Html.DropDownListFor(m => m.UserType, ViewBag.UserTypes as SelectList, new { @class = "form-control" })
         </div>
     </div>
-
+    <div class="form-group">
+        @Html.LabelFor(m => m.File, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.File, new { type = "file", placeholder = Html.DisplayNameFor(m => m.File), @class = "form-control" })
+        </div>
+    </div>
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-default" value="Register" />

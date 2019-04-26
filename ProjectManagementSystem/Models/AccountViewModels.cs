@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Web;
+
 namespace ProjectManagementSystem.Models
 {
     public class ExternalLoginConfirmationViewModel
@@ -90,6 +92,9 @@ namespace ProjectManagementSystem.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+        [Required]
+        [Display(Name = "Profile Picture")]
+        public HttpPostedFileBase File { get; set; }
     }
 
     public class ResetPasswordViewModel
