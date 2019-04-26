@@ -302,6 +302,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\profile\" />
     <Folder Include="ViewModel\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
