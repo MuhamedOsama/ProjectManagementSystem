@@ -15,12 +15,13 @@ namespace ProjectManagementSystem.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Projects
+        [Authorize(Roles = "Customer")]
         public ActionResult Index()
         {
             var projects = db.Projects.Include(p => p.Customer);
             return PartialView("_ListProjects",projects.ToList());
         }
-
+        
         // GET: Projects/Details/5
         public ActionResult Details(int? id)
         {
@@ -37,6 +38,7 @@ namespace ProjectManagementSystem.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize(Roles = "Customer")]
         public ActionResult Create()
         {
             var project = new Project();
