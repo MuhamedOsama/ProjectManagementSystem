@@ -14,9 +14,6 @@ namespace ProjectManagementSystem.Models
         public string CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
-        public string ProjectManagerId { get; set; }
-        [ForeignKey("ProjectManagerId")]
-        public ProjectManager ProjectManager { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

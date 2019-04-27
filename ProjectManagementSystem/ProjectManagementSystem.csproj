@@ -188,9 +188,9 @@
     <Compile Include="Migrations\201904261408375_AddedProfilePicture.Designer.cs">
       <DependentUpon>201904261408375_AddedProfilePicture.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201904271556426_AddedRelationshipForManagerAndProject.cs" />
-    <Compile Include="Migrations\201904271556426_AddedRelationshipForManagerAndProject.Designer.cs">
-      <DependentUpon>201904271556426_AddedRelationshipForManagerAndProject.cs</DependentUpon>
+    <Compile Include="Migrations\201904271848172_AddedRelationshipForManagerAndProject.cs" />
+    <Compile Include="Migrations\201904271848172_AddedRelationshipForManagerAndProject.Designer.cs">
+      <DependentUpon>201904271848172_AddedRelationshipForManagerAndProject.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -334,8 +334,8 @@
     <EmbeddedResource Include="Migrations\201904261408375_AddedProfilePicture.resx">
       <DependentUpon>201904261408375_AddedProfilePicture.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201904271556426_AddedRelationshipForManagerAndProject.resx">
-      <DependentUpon>201904271556426_AddedRelationshipForManagerAndProject.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201904271848172_AddedRelationshipForManagerAndProject.resx">
+      <DependentUpon>201904271848172_AddedRelationshipForManagerAndProject.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

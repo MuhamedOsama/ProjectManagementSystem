@@ -13,7 +13,7 @@ namespace ProjectManagementSystem.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201904271556426_AddedRelationshipForManagerAndProject"; }
+            get { return "201904271848172_AddedRelationshipForManagerAndProject"; }
         }
         
         string IMigrationMetadata.Source
