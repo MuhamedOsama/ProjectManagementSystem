@@ -24,9 +24,10 @@ namespace ProjectManagementSystem.Controllers
             var projects = db.Projects.Include(p => p.Customer);
             if (User.IsInRole("Customer"))
             {
+
                 return PartialView("_ListProjects", projects.ToList());
             }
-            return PartialView("_nonCustomerView", projects.ToList());
+            return PartialView("_nonCustomerView", projects.Where(m => m.UserId == null).ToList());
         }
         
         // GET: Projects/Details/5
