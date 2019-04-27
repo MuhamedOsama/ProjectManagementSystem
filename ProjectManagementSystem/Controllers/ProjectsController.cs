@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using ProjectManagementSystem.Models;
 
 namespace ProjectManagementSystem.Controllers
@@ -19,7 +20,11 @@ namespace ProjectManagementSystem.Controllers
         public ActionResult Index()
         {
             var projects = db.Projects.Include(p => p.Customer);
-            return PartialView("_ListProjects",projects.ToList());
+            if (User.IsInRole("Customer"))
+            {
+                return PartialView("_ListProjects", projects.ToList());
+            }
+            return PartialView("_nonCustomerView", projects.ToList());
         }
         
         // GET: Projects/Details/5
@@ -38,12 +43,12 @@ namespace ProjectManagementSystem.Controllers
         }
 
         // GET: Projects/Create
-        [Authorize(Roles = "Customer")]
+        
         public ActionResult Create()
         {
             var project = new Project();
             ViewBag.CustomerId = new SelectList(db.Users, "Id", "FirstName");
-            return PartialView("_CreateProject",project);
+            return PartialView("_CreateProject", project); 
         }
 
         // POST: Projects/Create

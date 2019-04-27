@@ -8,9 +8,15 @@ namespace ProjectManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
+        [Authorize]
         public ActionResult Index()
         {
-            return View();
+            if (User.IsInRole("Customer"))
+            {
+                return View("Index");
+            }
+            return View("otherUsers");
+            
         }
 
         public ActionResult About()
