@@ -14,6 +14,7 @@ namespace ProjectManagementSystem.Models
         public string CustomerId { get; set; }
         [ForeignKey("CustomerId")]
         public Customer Customer { get; set; }
+        public string UserId { get; set; }
         public DateTime CreatedAt { get; set; }
     }
 }

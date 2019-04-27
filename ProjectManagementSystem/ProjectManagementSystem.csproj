@@ -192,6 +192,10 @@
     <Compile Include="Migrations\201904271848172_AddedRelationshipForManagerAndProject.Designer.cs">
       <DependentUpon>201904271848172_AddedRelationshipForManagerAndProject.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904272003074_RenamingForeignKeyPropertyInProjects.cs" />
+    <Compile Include="Migrations\201904272003074_RenamingForeignKeyPropertyInProjects.Designer.cs">
+      <DependentUpon>201904272003074_RenamingForeignKeyPropertyInProjects.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
@@ -336,6 +340,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904271848172_AddedRelationshipForManagerAndProject.resx">
       <DependentUpon>201904271848172_AddedRelationshipForManagerAndProject.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904272003074_RenamingForeignKeyPropertyInProjects.resx">
+      <DependentUpon>201904272003074_RenamingForeignKeyPropertyInProjects.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

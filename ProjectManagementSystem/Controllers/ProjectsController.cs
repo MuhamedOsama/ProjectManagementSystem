@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using ProjectManagementSystem.Models;
 
 namespace ProjectManagementSystem.Controllers
@@ -116,6 +118,18 @@ namespace ProjectManagementSystem.Controllers
                 return HttpNotFound();
             }
             return View(project);
+        }
+        public ActionResult Assign(int id)
+        {
+            var ProjectManagerId = User.Identity.GetUserId();
+
+            var userStore = new UserStore<User>(db);
+            var manager = new UserManager<User>(userStore);
+            var pm = db.Users.Include(m=>m.Projects).FirstOrDefault(m=>m.Id == ProjectManagerId);
+            var project = db.Projects.Find(id);
+            pm.Projects.Add(project);
+            db.SaveChanges();
+            return RedirectToAction("Index", "Home");
         }
 
         // POST: Projects/Delete/5
