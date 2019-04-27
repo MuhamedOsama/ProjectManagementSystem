@@ -126,7 +126,7 @@ namespace ProjectManagementSystem.Controllers
             Project project = db.Projects.Find(id);
             db.Projects.Remove(project);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Home");
         }
 
         protected override void Dispose(bool disposing)
