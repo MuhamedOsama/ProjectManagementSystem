@@ -161,9 +161,7 @@ namespace ProjectManagementSystem.Controllers
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 string path = System.IO.Path.Combine(
                                        Server.MapPath("~/images/profile"), pic);
-                file.SaveAs(path);
-                var photo = new Photo { FileContentType = file.ContentType, FileName = file.FileName, FilePath = path };
-                var user = new User { FirstName = model.FirstName, LastName = model.LastName, Description = model.Description, UserName = model.Email, Email = model.Email, Photo = photo };
+                var user = new User { FirstName = model.FirstName, LastName = model.LastName, Description = model.Description, UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -171,6 +169,11 @@ namespace ProjectManagementSystem.Controllers
                     var roleMngr = new RoleManager<IdentityRole>(roleStore);
                     var role = roleMngr.FindById(model.UserType);
                     var res = await UserManager.AddToRoleAsync(user.Id, role.Name);
+                    //saving profile picture
+                    var photo = new Photo { FileContentType = file.ContentType, FileName = file.FileName, FilePath = path, UserId = user.Id};
+                    file.SaveAs(path);
+                    db.Photos.Add(photo);
+                    db.SaveChanges();
                     if (res.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);

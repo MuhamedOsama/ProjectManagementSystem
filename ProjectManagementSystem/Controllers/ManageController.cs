@@ -67,13 +67,15 @@ namespace ProjectManagementSystem.Controllers
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
                 : "";
             string userId = User.Identity.GetUserId();
-            User user = db.Users.Include(m => m.Photo).Single(m => m.Id == userId);
+            
+            Photo photo = db.Photos.FirstOrDefault(m => m.UserId == userId);
+            User user = db.Users.Single(m => m.Id == userId);
             var model = new IndexViewModel
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                img = user.Photo.FilePath
+                img = photo.FilePath
         };
             return View(model);
         }

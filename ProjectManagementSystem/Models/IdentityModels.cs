@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -20,8 +21,8 @@ namespace ProjectManagementSystem.Models
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
         public string Description { get; set; }
-        public Photo Photo { get; set; }
         public List<Project> Projects { get; set; }
+
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<User> manager)
         {
             // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
@@ -39,6 +40,7 @@ namespace ProjectManagementSystem.Models
         public DbSet<ProjectManager> ProjectManagers { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<ProjectsHistory> ProjectsHistory { get; set; }
+        public DbSet<Photo> Photos { get; set; }
 
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
