@@ -309,6 +309,7 @@
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Projects\_nonCustomerView.cshtml" />
     <Content Include="Views\Home\otherUsers.cshtml" />
+    <Content Include="Views\Home\_ListOfUsers.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
