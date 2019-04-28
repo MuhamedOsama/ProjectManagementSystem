@@ -1,5 +1,5 @@
 ﻿
-@model IEnumerable<ProjectManagementSystem.Models.User>
+@model IEnumerable<ProjectManagementSystem.ViewModel.UsersWithRoles>
 
 <br />
 <br />
@@ -13,7 +13,7 @@
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Roles)
+                @Html.DisplayNameFor(model => model.Role)
             </th>
         </tr>
     <thead>
@@ -27,7 +27,7 @@
                     @Html.DisplayFor(modelItem => item.Email)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Roles)
+                    @Html.DisplayFor(modelItem => item.Role)
                 </td>
 
             </tr>
