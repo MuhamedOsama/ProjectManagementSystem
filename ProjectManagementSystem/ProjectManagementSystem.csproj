@@ -196,6 +196,10 @@
     <Compile Include="Migrations\201904272003074_RenamingForeignKeyPropertyInProjects.Designer.cs">
       <DependentUpon>201904272003074_RenamingForeignKeyPropertyInProjects.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904281641458_AddingProjectsHistory.cs" />
+    <Compile Include="Migrations\201904281641458_AddingProjectsHistory.Designer.cs">
+      <DependentUpon>201904281641458_AddingProjectsHistory.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
@@ -206,6 +210,7 @@
     <Compile Include="Models\Photo.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\ProjectManager.cs" />
+    <Compile Include="Models\ProjectsHistory.cs" />
     <Compile Include="Models\TeamLeader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -344,6 +349,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904272003074_RenamingForeignKeyPropertyInProjects.resx">
       <DependentUpon>201904272003074_RenamingForeignKeyPropertyInProjects.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904281641458_AddingProjectsHistory.resx">
+      <DependentUpon>201904281641458_AddingProjectsHistory.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

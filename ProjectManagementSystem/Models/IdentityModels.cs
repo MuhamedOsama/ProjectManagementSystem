@@ -38,7 +38,8 @@ namespace ProjectManagementSystem.Models
         public DbSet<TeamLeader> TeamLeaders { get; set; }
         public DbSet<ProjectManager> ProjectManagers { get; set; }
         public DbSet<Project> Projects { get; set; }
-        
+        public DbSet<ProjectsHistory> ProjectsHistory { get; set; }
+
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
