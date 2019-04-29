@@ -144,8 +144,17 @@ namespace ProjectManagementSystem.Controllers
         {
             var roleStore = new RoleStore<IdentityRole>(db);
             var roleMngr = new RoleManager<IdentityRole>(roleStore);
-            var roles = roleMngr.Roles.Where(e=>e.Name!="Admin").ToList();
-            ViewBag.UserTypes = new SelectList(roles, "Id", "Name");
+            if (db.Users.Any())
+            {
+                var roles = roleMngr.Roles.Where(e => e.Name != "Admin").ToList();
+                ViewBag.UserTypes = new SelectList(roles, "Id", "Name");
+            }
+            else
+            {
+                var roles = roleMngr.Roles.ToList();
+                ViewBag.UserTypes = new SelectList(roles, "Id", "Name");
+            }
+            
             return View();
         }
 
@@ -162,25 +171,42 @@ namespace ProjectManagementSystem.Controllers
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 string path = System.IO.Path.Combine(
                                        Server.MapPath("~/images/profile"), pic);
+                
                 var user = new User { FirstName = model.FirstName, LastName = model.LastName, Description = model.Description, UserName = model.Email, Email = model.Email};
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     var roleStore = new RoleStore<IdentityRole>(db);
                     var roleMngr = new RoleManager<IdentityRole>(roleStore);
-                    var role = roleMngr.FindById(model.UserType);
-                    var res = await UserManager.AddToRoleAsync(user.Id, role.Name);
-                    //saving profile picture
-                    var photo = new Photo { FileContentType = file.ContentType, FileName = file.FileName, FilePath = path, UserId = user.Id};
-                    file.SaveAs(path);
-                    db.Photos.Add(photo);
-                    db.SaveChanges();
+                    IdentityResult res;
+                    if (!db.Users.Any())
+                    {
+                        var role = roleMngr.FindById(model.UserType);
+                        res = await UserManager.AddToRoleAsync(user.Id, role.Name);
+                        var photo = new Photo { FileContentType = file.ContentType, FileName = file.FileName, FilePath = path, UserId = user.Id };
+                        file.SaveAs(path);
+                        db.Photos.Add(photo);
+                        db.SaveChanges();
+                        
+                    }
+                    else
+                    {
+                        var role = roleMngr.FindById(model.UserType);
+                        res = await UserManager.AddToRoleAsync(user.Id, role.Name);
+                        var photo = new Photo { FileContentType = file.ContentType, FileName = file.FileName, FilePath = path, UserId = user.Id };
+                        file.SaveAs(path);
+                        db.Photos.Add(photo);
+                        db.SaveChanges();
+
+                    }
                     if (res.Succeeded)
                     {
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
                     }
-                    
-                    
+                    //saving profile picture
+
+
+
                     // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);

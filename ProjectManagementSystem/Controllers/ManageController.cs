@@ -70,12 +70,17 @@ namespace ProjectManagementSystem.Controllers
             
             Photo photo = db.Photos.FirstOrDefault(m => m.UserId == userId);
             User user = db.Users.Single(m => m.Id == userId);
+            var roleStore = new RoleStore<IdentityRole>(db);
+            var roleMngr = new RoleManager<IdentityRole>(roleStore);
+            var isAdmin = UserManager.IsInRole(user.Id, "Admin");
+
             var model = new IndexViewModel
             {
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                img = photo.FilePath
+                Img = photo.FilePath,
+                isAdmin = isAdmin
             };
             return View("Index",model);
         }

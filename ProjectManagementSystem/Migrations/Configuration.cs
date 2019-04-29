@@ -32,25 +32,6 @@ namespace ProjectManagementSystem.Migrations
                     );
                 context.SaveChanges();
             }
-            //add admin user
-            if (!context.Users.Any(u => u.UserName == "admin"))
-            {
-                var user = new User
-                {
-                    FirstName = "admin",
-                    LastName = "admin",
-                    Email = "admin@gmail.com",
-                    UserName = "admin@gmail.com"
-                };
-
-                var userStore = new UserStore<User>(context);
-                var manager = new UserManager<User>(userStore);
-                var result  = manager.Create(user,"admin19");
-                if (result.Succeeded)
-                {
-                    manager.AddToRole(user.Id, "Admin");
-                }   
-            }
         }
     }
 }

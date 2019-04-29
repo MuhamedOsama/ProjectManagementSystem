@@ -34,9 +34,14 @@
             <td>
                 @Html.ActionLink("Add", "Register", "Account", new { id = item.UserId }, new { @class = "btn btn-primary" })
             </td>
-            <td>
-                @Html.ActionLink("Delete", "Delete", "Account", new { id = item.UserId }, new { @class = "btn btn-primary" })
-            </td>
+            @if (!item.Role.Contains("Admin"))
+            {
+                <td>
+
+                    @Html.ActionLink("Delete", "Delete", "Account", new { id = item.UserId }, new { @class = "btn btn-primary" })
+                </td>
+            }
+
         </tr>
         }
 
