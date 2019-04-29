@@ -26,6 +26,10 @@ namespace ProjectManagementSystem.Controllers
             {
                 return View("otherUsers");
             }
+            else if(User.IsInRole("Admin"))
+            {
+                return View("Index");
+            }
             return View("noView");
             
         }

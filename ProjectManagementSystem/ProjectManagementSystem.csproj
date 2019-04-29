@@ -332,6 +332,9 @@
     <Content Include="Views\Account\Edit.cshtml" />
     <Content Include="Views\Home\noView.cshtml" />
     <Content Include="Views\Projects\_ProfileView.cshtml" />
+    <Content Include="Views\Projects\_AdminPosts.cshtml" />
+    <Content Include="Views\Home\AdminView.cshtml" />
+    <Content Include="Views\Projects\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

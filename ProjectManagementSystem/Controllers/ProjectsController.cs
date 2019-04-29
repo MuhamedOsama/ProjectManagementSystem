@@ -33,6 +33,10 @@ namespace ProjectManagementSystem.Controllers
                 var pm = db.Users.Include(m => m.Projects).FirstOrDefault(m => m.Id == ProjectManagerId);
                 return PartialView("_ProfileView", projects.Where(m => m.UserId == ProjectManagerId).ToList());
             }
+            else if(User.IsInRole("Admin"))
+            {
+                return PartialView("_AdminPosts", projects.ToList());
+            }
             return PartialView("_nonCustomerView", projects.Where(m => m.UserId == null).ToList());
         }
         
@@ -92,40 +96,25 @@ namespace ProjectManagementSystem.Controllers
                 return HttpNotFound();
             }
             ViewBag.CustomerId = new SelectList(db.Users, "Id", "FirstName", project.CustomerId);
-            return View(project);
+            return View("Edit",project);
         }
 
-        // POST: Projects/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "Id,Name,Description,CustomerId,CreatedAt")] Project project)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Index","Home");
             }
             ViewBag.CustomerId = new SelectList(db.Users, "Id", "FirstName", project.CustomerId);
-            return View(project);
+            return RedirectToAction("Index","Home");
         }
 
-        // GET: Projects/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Project project = db.Projects.Find(id);
-            if (project == null)
-            {
-                return HttpNotFound();
-            }
-            return View(project);
-        }
+       
+        
         public ActionResult Assign(int id)
         {
             var ProjectManagerId = User.Identity.GetUserId();
@@ -139,10 +128,8 @@ namespace ProjectManagementSystem.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // POST: Projects/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+       
+        public ActionResult Delete(int id)
         {
             Project project = db.Projects.Find(id);
             db.Projects.Remove(project);
