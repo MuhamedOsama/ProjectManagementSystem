@@ -171,8 +171,9 @@ namespace ProjectManagementSystem.Controllers
                 string pic = System.IO.Path.GetFileName(file.FileName);
                 string path = System.IO.Path.Combine(
                                        Server.MapPath("~/images/profile"), pic);
-                
-                var user = new User { FirstName = model.FirstName, LastName = model.LastName, Description = model.Description, UserName = model.Email, Email = model.Email};
+                UserFactory Factory = new UserFactory(model);
+                var UserTypeName = db.Roles.FirstOrDefault(m => m.Id == model.UserType).Name;
+                var user = Factory.GetUser(UserTypeName);
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {

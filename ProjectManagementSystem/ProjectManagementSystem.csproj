@@ -223,6 +223,8 @@
     <Compile Include="Models\ProjectManager.cs" />
     <Compile Include="Models\ProjectsHistory.cs" />
     <Compile Include="Models\Qualifications.cs" />
+    <Compile Include="Models\Team.cs" />
+    <Compile Include="Models\UserFactory.cs" />
     <Compile Include="ViewModel\QualificationsViewModel.cs" />
     <Compile Include="Models\TeamLeader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
