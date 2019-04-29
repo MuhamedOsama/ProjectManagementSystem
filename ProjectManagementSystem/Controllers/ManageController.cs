@@ -85,6 +85,11 @@ namespace ProjectManagementSystem.Controllers
             return View("Index",model);
         }
 
+        public ActionResult Data()
+        {
+            return View("Data");
+        }
+
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
