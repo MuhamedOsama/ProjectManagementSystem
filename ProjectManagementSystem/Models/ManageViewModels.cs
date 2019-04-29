@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.Helpers;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
-
 namespace ProjectManagementSystem.Models
 {
     public class IndexViewModel

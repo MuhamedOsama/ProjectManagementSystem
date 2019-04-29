@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
+using Logger;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using ProjectManagementSystem.Models;
@@ -16,9 +14,19 @@ namespace ProjectManagementSystem.Controllers
     public class ProjectsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        private ILog _ILog;
+        public ProjectsController()
+        {
+            _ILog = Log.GetInstance;
+        }
+        protected override void OnException(ExceptionContext filterContext)
+        {
+            _ILog.LogException(filterContext.Exception.ToString());
+            filterContext.ExceptionHandled = true;
+            this.View("Error").ExecuteResult(this.ControllerContext);
+        }
         // GET: Projects
-        
+
         public ActionResult Index()
         {
             var projects = db.Projects.Include(p => p.Customer);
