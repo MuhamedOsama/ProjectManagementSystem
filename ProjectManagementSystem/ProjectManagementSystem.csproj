@@ -207,6 +207,10 @@
     <Compile Include="Migrations\201904282330049_EditedPhotoUserRelation.Designer.cs">
       <DependentUpon>201904282330049_EditedPhotoUserRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904290040258_AddedUserQualification.cs" />
+    <Compile Include="Migrations\201904290040258_AddedUserQualification.Designer.cs">
+      <DependentUpon>201904290040258_AddedUserQualification.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
@@ -364,6 +368,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904282330049_EditedPhotoUserRelation.resx">
       <DependentUpon>201904282330049_EditedPhotoUserRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904290040258_AddedUserQualification.resx">
+      <DependentUpon>201904290040258_AddedUserQualification.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

@@ -19,7 +19,6 @@ namespace ProjectManagementSystem.Models
         [Range(0, 100, ErrorMessage = "Value for {0} must be between {1} and {2}.")]
         public byte Creativity { get; set; }
         public string UserId { get; set; }
-        [ForeignKey("UserId")]
         public User User { get; set; }
     }
 }
