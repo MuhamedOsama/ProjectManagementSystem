@@ -18,7 +18,10 @@
             <img src="@dataUrl" width="200" height="200" class="avatar img-thumbnail rounded-circle" alt="avatar" />
             <br />
             <br />
-            @Html.ActionLink("Enter Your Qulifications", "Data", "Manage", new { @class = "btn btn-primary" })
+            @if (!Model.isAdmin)
+            {
+                @Html.ActionLink("View Your Qulifications","Qualifications", "Manage", new { @class = "btn btn-primary" })
+            }
             <br />
             <br />
             <h5>FirstName:</h5>
@@ -32,9 +35,7 @@
         </div>
         @if (!Model.isAdmin)
         {
-            <div class="col">
-                <canvas id="myChart"></canvas>
-            </div>
+            
         }
 
         <div class="col">
@@ -43,28 +44,3 @@
         </div>
     </div>
 </div>
-<script>
-    var ctx = document.getElementById('myChart').getContext('2d');
-    var chart = new Chart(ctx, {
-        // The type of chart we want to create
-        type: 'pie',
-
-        // The data for our dataset
-            data: {
-                    labels: [
-                'Red',
-                'Yellow',
-                'Blue'
-            ],
-            datasets: [{
-                label: 'My First dataset',
-                backgroundColor:['blue','coral'],
-                borderColor: 'rgb(255, 99, 132)',
-                data: [55,30]
-            }]
-        },
-
-        // Configuration options go here
-        options: {}
-    });
-</script>

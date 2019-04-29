@@ -1,0 +1,46 @@
+﻿@Scripts.Render("~/Scripts/Chart.min.js");
+@model ProjectManagementSystem.Models.QualificationsViewModel
+@{
+    ViewBag.Title = "Qualifications";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="margin-top:3em;text-align:center;">Qualifications</h2>
+
+<div class="row">
+    <div class="col">
+        <canvas id="myChart"></canvas>
+    </div>
+</div>
+<script>
+    @{ 
+        byte English = Model.English;
+        byte Creativity = Model.Creativity;
+        byte Communication = Model.Communication;
+        byte Leadership = Model.Leadership;
+    }
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var chart = new Chart(ctx, {
+        // The type of chart we want to create
+        type: 'pie',
+
+        // The data for our dataset
+        data: {
+            labels: [
+                'English',
+                'Creativity',
+                'Communication',
+                'Leadership'
+            ],
+            datasets: [{
+                label: 'My First dataset',
+                backgroundColor: ['blue', 'coral','red','yellow'],
+                borderColor: 'rgb(255, 99, 132)',
+                data: [@English , @Creativity,@Communication,@Leadership]
+            }]
+        },
+
+        // Configuration options go here
+        options: {}
+    });
+</script>

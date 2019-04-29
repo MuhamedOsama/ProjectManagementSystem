@@ -89,6 +89,42 @@ namespace ProjectManagementSystem.Controllers
         {
             return View("Data");
         }
+        public ActionResult Qualifications()
+        {
+            string userId = User.Identity.GetUserId();
+            Qualifications q = db.Qualifications.FirstOrDefault(m => m.UserId == userId);
+            if (q == null)
+            {
+                return RedirectToAction("Data", "Manage");
+            }
+            else
+            {
+                var model = new QualificationsViewModel
+                {
+                    Communication = q.Communication,
+                    Creativity = q.Creativity,
+                    Leadership = q.Leadership,
+                    English = q.English
+                };
+                return View("Qualifications", model);
+            }
+            
+        }
+        [HttpPost]
+        public ActionResult Data(QualificationsViewModel model)
+        {
+            string userId = User.Identity.GetUserId();
+            db.Qualifications.Add(new Qualifications
+            {
+                English = model.English,
+                Creativity = model.Creativity,
+                Communication = model.Communication,
+                Leadership = model.Leadership,
+                UserId = userId
+            });
+            db.SaveChanges();
+            return RedirectToAction("Index", "Manage");
+        }
 
         // POST: /Manage/RemoveLogin
         [HttpPost]
