@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Entity;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
@@ -192,7 +193,35 @@ namespace ProjectManagementSystem.Controllers
             }
 
             // If we got this far, something failed, redisplay form
-            return View(model);
+            return View("Register",model);
+        }
+
+       /* public ActionResult Edit(string id)
+        {
+            RegisterViewModel model = new RegisterViewModel();
+            var user = db.Users.SingleOrDefault(u => u.Id == id);
+            var roleStore = new RoleStore<IdentityRole>(db);
+            var roleMngr = new RoleManager<IdentityRole>(roleStore);
+            var roles = roleMngr.Roles.Where(e => e.Name != "Admin").ToList();
+            ViewBag.UserTypes = new SelectList(roles, "Id", "Name");
+            var viewModel = new RegisterViewModel
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Description = user.Description,
+                Email = user.Email
+            };
+            
+            return View("Edit",viewModel);
+
+        }*/
+        public ActionResult Delete(string id)
+        {
+            User user = db.Users.SingleOrDefault(u => u.Id == id);
+            db.Users.Remove(user);
+            db.SaveChanges();
+
+            return RedirectToAction("Users", "Home");
         }
 
         //

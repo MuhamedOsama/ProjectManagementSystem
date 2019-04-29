@@ -27,6 +27,12 @@ namespace ProjectManagementSystem.Controllers
 
                 return PartialView("_ListProjects", projects.ToList());
             }
+            else if(User.IsInRole("ProjectManager"))
+            {
+                var ProjectManagerId = User.Identity.GetUserId();
+                var pm = db.Users.Include(m => m.Projects).FirstOrDefault(m => m.Id == ProjectManagerId);
+                return PartialView("_ProfileView", projects.Where(m => m.UserId == ProjectManagerId).ToList());
+            }
             return PartialView("_nonCustomerView", projects.Where(m => m.UserId == null).ToList());
         }
         

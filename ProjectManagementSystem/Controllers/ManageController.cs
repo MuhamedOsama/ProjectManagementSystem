@@ -76,8 +76,8 @@ namespace ProjectManagementSystem.Controllers
                 LastName = user.LastName,
                 Email = user.Email,
                 img = photo.FilePath
-        };
-            return View(model);
+            };
+            return View("Index",model);
         }
 
         // POST: /Manage/RemoveLogin

@@ -22,33 +22,41 @@ namespace ProjectManagementSystem.Controllers
             {
                 return View("Index");
             }
-            return View("otherUsers");
+            else if (User.IsInRole("ProjectManager"))
+            {
+                return View("otherUsers");
+            }
+            return View("noView");
             
         }
 
-        public ActionResult About()
+        public ActionResult Users()
         {
-            var userStore = new UserStore<User>(db);
-            var manager = new UserManager<User>(userStore);
-            var users = (from user in db.Users
-                         select new
-                         {
-                             UserId = user.Id,
-                             FirstName = user.FirstName,
-                             Email = user.Email,
-                             Roles = (from userRole in user.Roles
-                                      join role in db.Roles on userRole.RoleId
-                                      equals role.Id
-                                      select role.Name).ToList()
-                         }).ToList().Select(p=> new UsersWithRoles()
-                         {
-                             UserId = p.UserId,
-                             FirstName = p.FirstName,
-                             Email = p.Email,
-                             Role = string.Join(", ",p.Roles)
-                             
-                         });
-            return View("About", users);
+            if (User.IsInRole("Admin"))
+            {
+                var userStore = new UserStore<User>(db);
+                var manager = new UserManager<User>(userStore);
+                var users = (from user in db.Users
+                             select new
+                             {
+                                 UserId = user.Id,
+                                 FirstName = user.FirstName,
+                                 Email = user.Email,
+                                 Roles = (from userRole in user.Roles
+                                          join role in db.Roles on userRole.RoleId
+                                          equals role.Id
+                                          select role.Name).ToList()
+                             }).ToList().Select(p => new UsersWithRoles()
+                             {
+                                 UserId = p.UserId,
+                                 FirstName = p.FirstName,
+                                 Email = p.Email,
+                                 Role = string.Join(", ", p.Roles)
+
+                             });
+                return View("Users", users);
+            }
+            return RedirectToAction("Index","Home");
             
         }
 
