@@ -211,9 +211,15 @@
     <Compile Include="Migrations\201904290040258_AddedUserQualification.Designer.cs">
       <DependentUpon>201904290040258_AddedUserQualification.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201904300102548_AddingTeams.cs" />
+    <Compile Include="Migrations\201904300102548_AddingTeams.Designer.cs">
+      <DependentUpon>201904300102548_AddingTeams.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationRoleManager.cs" />
+    <Compile Include="Models\CriteriaGoodCreativity.cs" />
+    <Compile Include="Models\CriteriaGoodEnglish.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Developer.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -223,6 +229,7 @@
     <Compile Include="Models\ProjectManager.cs" />
     <Compile Include="Models\ProjectsHistory.cs" />
     <Compile Include="Models\Qualifications.cs" />
+    <Compile Include="Models\QualificationsCriteria.cs" />
     <Compile Include="Models\Team.cs" />
     <Compile Include="Models\UserFactory.cs" />
     <Compile Include="ViewModel\QualificationsViewModel.cs" />
@@ -382,6 +389,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201904290040258_AddedUserQualification.resx">
       <DependentUpon>201904290040258_AddedUserQualification.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201904300102548_AddingTeams.resx">
+      <DependentUpon>201904300102548_AddingTeams.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
